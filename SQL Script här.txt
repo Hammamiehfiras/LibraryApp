@@ -1,0 +1,87 @@
+-- Skapa databasen
+CREATE DATABASE library;
+USE library;
+
+-- Skapa tabellen 'users'
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(100) UNIQUE NOT NULL,
+    role ENUM('ADMIN', 'CUSTOMER') DEFAULT 'CUSTOMER'  -- Roll för användare (ADMIN eller CUSTOMER)
+);
+
+-- Skapa tabellen 'books'
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    category VARCHAR(100),  -- Kategori för böcker (t.ex. "Skönlitteratur", "Facklitteratur")
+    available BOOLEAN DEFAULT TRUE  -- Tillgänglighet för boken (TRUE = tillgänglig, FALSE = utlånad)
+);
+
+-- Skapa tabellen 'loans'
+CREATE TABLE loans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(100) NOT NULL,
+    book_id INT NOT NULL,
+    loan_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Datum när boken lånades
+    return_date TIMESTAMP NULL,  -- Datum när boken lämnades tillbaka (NULL om den inte är återlämnad)
+    FOREIGN KEY (user_name) REFERENCES users(user_name),  -- Främmande nyckel till 'users'-tabellen
+    FOREIGN KEY (book_id) REFERENCES books(id)  -- Främmande nyckel till 'books'-tabellen
+);
+
+
+
+
+USE library;
+
+INSERT INTO books (title, author, category, available) VALUES
+('Sagan om ringen', 'J.R.R. Tolkien', 'Fantasy', TRUE),
+('1984', 'George Orwell', 'Dystopi', TRUE),
+('Moby Dick', 'Herman Melville', 'Klassiker', TRUE),
+('Stolthet och fördom', 'Jane Austen', 'Klassiker', TRUE),
+('Brott och straff', 'Fjodor Dostojevskij', 'Klassiker', TRUE),
+('Harry Potter och de vises sten', 'J.K. Rowling', 'Fantasy', TRUE),
+('Pippi Långstrump', 'Astrid Lindgren', 'Barnbok', TRUE),
+('The Hitchhiker\'s Guide to the Galaxy', 'Douglas Adams', 'Science Fiction', TRUE),
+('The Great Gatsby', 'F. Scott Fitzgerald', 'Klassiker', TRUE),
+('To Kill a Mockingbird', 'Harper Lee', 'Klassiker', TRUE),
+('The Catcher in the Rye', 'J.D. Salinger', 'Klassiker', TRUE),
+('The Lord of the Flies', 'William Golding', 'Klassiker', TRUE),
+('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', TRUE),
+('The Chronicles of Narnia', 'C.S. Lewis', 'Fantasy', TRUE),
+('The Da Vinci Code', 'Dan Brown', 'Thriller', TRUE),
+('The Alchemist', 'Paulo Coelho', 'Filosofi', TRUE),
+('The Shining', 'Stephen King', 'Skräck', TRUE),
+('The Hunger Games', 'Suzanne Collins', 'Science Fiction', TRUE),
+('The Girl with the Dragon Tattoo', 'Stieg Larsson', 'Thriller', TRUE),
+('The Book Thief', 'Markus Zusak', 'Historisk fiktion', TRUE),
+('The Kite Runner', 'Khaled Hosseini', 'Historisk fiktion', TRUE),
+('The Handmaid\'s Tale', 'Margaret Atwood', 'Dystopi', TRUE),
+('The Road', 'Cormac McCarthy', 'Post-apokalyptisk', TRUE),
+('The Martian', 'Andy Weir', 'Science Fiction', TRUE),
+('The Fault in Our Stars', 'John Green', 'Ungdomsroman', TRUE),
+('The Name of the Wind', 'Patrick Rothfuss', 'Fantasy', TRUE),
+('The Night Circus', 'Erin Morgenstern', 'Fantasy', TRUE),
+('The Goldfinch', 'Donna Tartt', 'Drama', TRUE),
+('The Silent Patient', 'Alex Michaelides', 'Thriller', TRUE),
+('The Seven Husbands of Evelyn Hugo', 'Taylor Jenkins Reid', 'Drama', TRUE),
+('The Shadow of the Wind', 'Carlos Ruiz Zafón', 'Mysterium', TRUE),
+('The Pillars of the Earth', 'Ken Follett', 'Historisk fiktion', TRUE),
+('The Stand', 'Stephen King', 'Post-apokalyptisk', TRUE),
+('The Lies of Locke Lamora', 'Scott Lynch', 'Fantasy', TRUE),
+('The Ocean at the End of the Lane', 'Neil Gaiman', 'Fantasy', TRUE),
+('The Nightingale', 'Kristin Hannah', 'Historisk fiktion', TRUE),
+('The Secret History', 'Donna Tartt', 'Drama', TRUE),
+('The Power of Now', 'Eckhart Tolle', 'Självhjälp', TRUE),
+('The Subtle Art of Not Giving a F*ck', 'Mark Manson', 'Självhjälp', TRUE),
+('The Art of War', 'Sun Tzu', 'Strategi', TRUE),
+('The Little Prince', 'Antoine de Saint-Exupéry', 'Barnbok', TRUE),
+('The Picture of Dorian Gray', 'Oscar Wilde', 'Klassiker', TRUE),
+('The Stranger', 'Albert Camus', 'Filosofi', TRUE),
+('The Old Man and the Sea', 'Ernest Hemingway', 'Klassiker', TRUE),
+('The Bell Jar', 'Sylvia Plath', 'Drama', TRUE),
+('The Color Purple', 'Alice Walker', 'Drama', TRUE),
+('The Sun Also Rises', 'Ernest Hemingway', 'Klassiker', TRUE),
+('The Metamorphosis', 'Franz Kafka', 'Klassiker', TRUE),
+('The Brothers Karamazov', 'Fjodor Dostojevskij', 'Klassiker', TRUE),
+('The Divine Comedy', 'Dante Alighieri', 'Klassiker', TRUE);
